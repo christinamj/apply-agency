@@ -1,10 +1,61 @@
 .App {
   text-align: center;
+  box-sizing: border-box;
+}
+
+.introTxtWrap {
+  padding: 25px;
+  text-align: left;
+}
+
+.interactive-container {
+  padding: 25px;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.map-container {
+  overflow: hidden;
+  height: 55vh;
+  width: 100%;
+}
+
+.map-wrapper {
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  /* display: flex; */
+  width: 100%;
+}
+.add-info {
+  height: 85%;
+  background-color: rgb(222, 233, 228);
+
+  font-family: "Montserrat", sans-serif;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+}
+
+.info-txt {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+}
+
+.close {
+  display: flex;
+  justify-content: right;
+  padding: 10px;
+  padding-bottom: 15px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -28,11 +79,29 @@
   color: #61dafb;
 }
 
+.fontRegular {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+}
+
+tr:nth-child(even) {
+  background: #f0f0f0;
+}
+tr:nth-child(odd) {
+  background: #fff;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1000px !important;
   }
 }
