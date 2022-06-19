@@ -4,14 +4,30 @@ import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import { useState } from "react";
 import "@coreui/coreui/dist/css/coreui.min.css";
 import { CCloseButton } from "@coreui/react";
+import { ThreeDots } from "react-loader-spinner";
+import { createUseStyles } from "react-jss";
 
+const styles = createUseStyles({
+  flexCenter: {
+    position: "absolute",
+    left: "50%",
+    top: "44%",
+    transform: "translate(-50%, -50%)",
+  },
+});
 const GoogleMaps = (data) => {
+  const classes = styles();
   const [chosenObject, setChosen] = useState(false);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyAMCkInCG-VQh6ZYDys_9bgzjcnGegQbvg",
   });
 
-  if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded)
+    return (
+      <div className={classes.flexCenter}>
+        <ThreeDots color="#D3D3D3" height={80} width={80} />
+      </div>
+    );
   return <Map />;
 
   function Map() {

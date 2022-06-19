@@ -71,14 +71,6 @@ const styles = createUseStyles({
 });
 
 export const Kommuner = () => {
-  function clickedButton() {
-    setInteractive(true);
-  }
-
-  const handleClick = (number) => {
-    setPage(number);
-  };
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -86,6 +78,17 @@ export const Kommuner = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   console.log(totalPages);
+  const startIndex = (page - 1) * ITEMS_PER_PAGE;
+  const selectedItems = data.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const classes = styles();
+
+  const clickedButton = () => {
+    setInteractive(true);
+  };
+
+  const handleClick = (number) => {
+    setPage(number);
+  };
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -102,30 +105,28 @@ export const Kommuner = () => {
     fetchItems();
   }, []);
 
-  function sortName() {
+  const sortName = () => {
     let sortedData = [...data].sort((a, b) => a.navn.localeCompare(b.navn));
 
     setData(sortedData);
     setInteractive(true);
-  }
+  };
 
-  function sortRegion() {
+  const sortRegion = () => {
     let sortedData = [...data].sort((a, b) => a.region.navn.localeCompare(b.region.navn));
 
     setData(sortedData);
     setInteractive(true);
-  }
-  function sortCode() {
+  };
+  const sortCode = () => {
     let sortedData = [...data].sort(function (a, b) {
       return a.kode - b.kode;
     });
 
     setData(sortedData);
     setInteractive(true);
-  }
-  const startIndex = (page - 1) * ITEMS_PER_PAGE;
-  const selectedUsers = data.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  const classes = styles();
+  };
+
   if (interactive === false)
     return (
       <div className={classes.introContainer}>
@@ -141,13 +142,16 @@ export const Kommuner = () => {
         </div>
       </div>
     );
+
   if (loading)
     return (
       <div className={classes.flexCenter}>
         <ThreeDots color="#D3D3D3" height={80} width={80} />
       </div>
     );
+
   if (error) return <pre>{JSON.stringify(error)}</pre>;
+
   if (data)
     return (
       <div className="interactive-container">
@@ -167,7 +171,7 @@ export const Kommuner = () => {
                 Region
               </th>
             </tr>
-            {selectedUsers.map((data) => (
+            {selectedItems.map((data) => (
               <Kommune data={data} key={data.dagi_id} />
             ))}
           </tbody>
